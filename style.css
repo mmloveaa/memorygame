@@ -1,0 +1,13 @@
+.tile {
+  height: 80px;
+  width: 130px;
+  margin: 2px;
+  background-color: yellow;
+  display: inline-block;
+  text-align: center;
+}
+
+#board{
+  width:536px;
+}
+
