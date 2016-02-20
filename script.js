@@ -20,7 +20,7 @@ Game.prototype.makeBoard = function() {
     var self = this;
     this.arrayOfIds = randomArray(this.numTiles / 2)
     for ( var i = 0; i < this.arrayOfIds.length; i++) {
-        var tile = new Tile(this.arrayOfIds[i])
+        var tile = new Tile(this.arrayOfIds[i].index, this.arrayOfIds[i].image)
         var $tile = $(tile.html)
         $tile.on('click', function() {
             // check if the number of selected tiles is less than two, if it is reveal the element if it is not then dont do anything
@@ -78,11 +78,24 @@ function init() {
 
 
 // Step 4
-function Tile(id) {
+function Tile(id, url) {
     this.id = id;
+    this.url = url;
     this.status = false;
-    this.html = '<span class="tile" id=' + this.id + '><span class="hidden">' + this.id + '</span></span>'
+    // ** Old code, just use id to match 
+    // this.html = '<span class="tile" id=' + this.id + '><span class="hidden">' + this.id + '</span></span>'
+    this.html = '<span class="tile" id=' + this.id + '><img class="hidden" src='+this.url+'></span>'
 }
+
+
+/*
+http://www.medhatspca.ca/sites/default/files/news_photos/2014-Apr-15/node-147/cute-little-cat.jpg
+http://www.perfectlitter.com/wp-content/uploads/2015/12/Beautifull-cat-cats-14749885-1600-1200.jpg
+http://static.tumblr.com/81b6d42b4064def5e9062d5f4410c820/betml74/Yl5ml0lia/tumblr_static_impress.jpg
+https://i.ytimg.com/vi/icqDxNab3Do/maxresdefault.jpg
+https://pbs.twimg.com/profile_images/447460759329460224/mt2UmwGG_400x400.jpeg
+http://i.telegraph.co.uk/multimedia/archive/03344/Grumpycat_3344645b.jpg
+*/
 
 // Step 5
 // num is equal to number of unique ID
@@ -92,11 +105,23 @@ function randomArray(num) {
     }
     var ordArr = [];
     var ranArr = [];
+    var imgArr = ['http://www.medhatspca.ca/sites/default/files/news_photos/2014-Apr-15/node-147/cute-little-cat.jpg',
+                            'http://www.perfectlitter.com/wp-content/uploads/2015/12/Beautifull-cat-cats-14749885-1600-1200.jpg',
+                'http://static.tumblr.com/81b6d42b4064def5e9062d5f4410c820/betml74/Yl5ml0lia/tumblr_static_impress.jpg',
+                'https://i.ytimg.com/vi/icqDxNab3Do/maxresdefault.jpg',
+                'https://pbs.twimg.com/profile_images/447460759329460224/mt2UmwGG_400x400.jpeg',
+                'http://i.telegraph.co.uk/multimedia/archive/03344/Grumpycat_3344645b.jpg'
+                ];
+    // ** Old code, just use id to match            
+    // for (var i = 0; i < num; i++) {
+    //     ordArr.push(i);
+    //     ordArr.push(i);
+    // }
 
     for (var i = 0; i < num; i++) {
-        ordArr.push(i);
-        ordArr.push(i);
-    }
+    ordArr.push({index: i, image: imgArr[i]});
+    ordArr.push({index: i, image: imgArr[i]});
+  }
 
     while (ordArr.length) {
         var index = getRandomInt(0, ordArr.length);
